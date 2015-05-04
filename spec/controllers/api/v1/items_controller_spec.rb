@@ -23,4 +23,16 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
     expect(first_item[:description]).to eq("this is a cat.")
   end
 
+  it "responds to #create" do
+    expect do
+      post :create, format: :json, item: { name: "Cow", description: "This is a cow."}
+
+      item = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(201)
+
+      expect(item[:name]).to eq("Cow")
+      expect(item[:description]).to eq("This is a cow.")
+    end.to change{ Item.count }.from(0).to(1)
+  end
 end
