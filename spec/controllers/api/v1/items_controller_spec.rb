@@ -35,4 +35,12 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
       expect(item[:description]).to eq("This is a cow.")
     end.to change{ Item.count }.from(0).to(1)
   end
+
+  it "responds to #update" do
+    old_item = Item.create(name: "cat", description: "this is a cat.")
+    expect(Item.first.name).to eq(old_item.name)
+    put :update, format: :json, id: old_item.id, item: { name: "Cow", description: "This is a cow."}
+    expect(Item.first.name).to eq("Cow")
+    expect(response.status).to eq(204)
+  end
 end
