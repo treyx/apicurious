@@ -13,6 +13,10 @@ class Api::V1::ItemsController < ApplicationController
     respond_with :api, :v1, Item.create(item_params)
   end
 
+  def update
+    respond_with :api, :v1, Item.update(params[:id], item_params)
+  end
+
 
   private
 
