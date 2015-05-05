@@ -17,6 +17,9 @@ class Api::V1::ItemsController < ApplicationController
     respond_with :api, :v1, Item.update(params[:id], item_params)
   end
 
+  def destroy
+    respond_with Item.destroy(params[:id])
+  end
 
   private
 
