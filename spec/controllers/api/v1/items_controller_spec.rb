@@ -43,4 +43,10 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
     expect(Item.first.name).to eq("Cow")
     expect(response.status).to eq(204)
   end
+
+
+  it "responds to #destroy" do
+    item = Item.create(name: "cat", description: "this is a cat.")
+    delete :destroy, format: :json, id: item.id
+  end
 end
